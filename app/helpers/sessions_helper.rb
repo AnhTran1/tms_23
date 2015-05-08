@@ -35,6 +35,10 @@ module SessionsHelper
     !current_user.nil?
   end
 
+  def trainee_user? user
+    user.supervisor == 0
+  end
+
   # Forgets a persistent session.
   def forget(user)
     user.forget
