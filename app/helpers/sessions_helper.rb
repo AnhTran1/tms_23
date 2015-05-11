@@ -73,4 +73,8 @@ module SessionsHelper
     redirect_to(root_url) unless current_user.supervisor == 0
   end
 
+  def supervisor_user
+    redirect_to(root_url) unless current_user.supervisor == 1
+  end
+
 end

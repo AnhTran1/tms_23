@@ -1,0 +1,5 @@
+<h1><span class="name"><%= @course.name %></span></h1>
+<b>Description</b>
+<p><span class="decription"><%= @course.description %></span></p>
+<div><%= link_to "Assign Supervisor", edit_supervisors_course_assign_supervisors_path(@course) %></div>
+<div><%= link_to "Assigin Trainee", edit_supervisors_course_assign_trainees_path(@course) %></div>

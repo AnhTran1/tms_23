@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessor :remember_token
+  has_many :supervisor_courses, dependent: :destroy
   before_save { self.email = email.downcase }
   validates :name, presence: true , length: {maximum: 50}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -35,4 +36,14 @@ class User < ActiveRecord::Base
   def forget
     update_attribute(:remember_digest, nil)
   end
+
+  scope :supervisor_not_enroll_to_courses, lambda { |course|
+    sql = "(SELECT user_id FROM supervisor_courses WHERE course_id = #{course.id})"
+    User.where("users.id NOT IN #{sql} and users.supervisor > 0")
+  }
+
+  scope :trainee_not_enroll_to_courses, lambda { |course|
+    sql = "(SELECT user_id FROM trainee_courses WHERE course_id = #{course.id})"
+    User.where("users.id NOT IN #{sql} and users.supervisor == 0")
+  }
 end

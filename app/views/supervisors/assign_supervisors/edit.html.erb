@@ -1,0 +1,27 @@
+<% provide(:title, "Assign Supervisor") %>
+<h1>Assign Supervisor</h1>
+<div class="span5 offset1">
+
+  <div><strong>Supervisor in course</strong></div>
+  <%= will_paginate @supervisors_enrolls %>
+  <% @supervisors_enrolls.each do |user_course| %>
+    <% user = user_course.user %>
+    <div>
+      <%= link_to user.name, user %>
+      <%= link_to 'Remove', admin_course_assign_supervisors_path(@course, id: user.id),
+        method: :delete %>
+    </div>
+  <% end %>
+
+  <div><strong>Add supervisor to course</strong></div>
+  <%= will_paginate @supervisors_not_enrolls %>
+  <div>
+    <% @supervisors_not_enrolls.each do |user| %>
+      <div>
+        <%= link_to user.name, user %>
+        <%= link_to 'Add', supervisors_course_assign_supervisors_path(@course.id, id: user.id),
+          method: :create %>
+      </div>
+    <% end %>
+  </div>
+</div>
