@@ -20,7 +20,7 @@ class Supervisors::AssignSupervisorsController < ApplicationController
 
   def destroy
     user = User.find params[:id]
-    @course.trainee_courses.find_by(user_id: user.id).destroy      
+    @course.supervisor_courses.find_by(user_id: user.id).destroy      
     flash[:success] = "Supervisor #{user.name} has just been removed from course"
     redirect_to edit_supervisors_course_assign_supervisors_path @course
   end

@@ -18,10 +18,12 @@ Rails.application.routes.draw do
     resources :sessions, only: [:new, :create, :destroy]
     resources :users
     resources :courses
+    resources :subjects
 
     resources :courses do
       resource :assign_supervisors, only: [:edit, :create, :destroy]
       resource :assign_trainees, only: [:edit, :create, :destroy]
+      resources :course_subjects, only: [:show, :edit, :update]
     end
   end
 

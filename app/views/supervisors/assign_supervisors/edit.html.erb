@@ -8,7 +8,7 @@
     <% user = user_course.user %>
     <div>
       <%= link_to user.name, user %>
-      <%= link_to 'Remove', admin_course_assign_supervisors_path(@course, id: user.id),
+      <%= link_to 'Remove', supervisors_course_assign_supervisors_path(@course, id: user.id),
         method: :delete %>
     </div>
   <% end %>

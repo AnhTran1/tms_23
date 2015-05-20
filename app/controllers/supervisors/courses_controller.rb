@@ -9,6 +9,7 @@ class Supervisors::CoursesController < ApplicationController
 
   def show
   	@course = Course.find(params[:id])
+  	@course_subjects = @course.course_subjects
   end
 
   def new
@@ -27,15 +28,23 @@ class Supervisors::CoursesController < ApplicationController
 
   def edit
   	@course = Course.find params[:id]
+  	(Subject.all - @course.subjects).each do |subject|
+      @course.course_subjects.build subject: subject
+    end
   end
 
   def update
   	@course = Course.find(params[:id])
     if @course.update_attributes(course_params)
       flash[:success] = "Course updated"
-      redirect_to supervisors_courses_path
+      redirect_to supervisors_course_path(@course)
     else
        render 'edit'
+    end
+    @course.course_subjects.each do |course_subject|
+      if course_subject.subject_id.nil?
+        course_subject.destroy
+      end
     end
   end
 
@@ -48,7 +57,8 @@ class Supervisors::CoursesController < ApplicationController
 
   private
     def course_params
-      params.require(:course).permit(:name, :description )
+      params.require(:course).permit(:name, :description, :start_at,  
+        course_subjects_attributes: [:id, :course_id, :subject_id])
     end
 
     # def enrolled_course

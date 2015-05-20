@@ -1,5 +1,12 @@
 <h1><span class="name"><%= @course.name %></span></h1>
 <b>Description</b>
 <p><span class="decription"><%= @course.description %></span></p>
+<b>All subjects</b></br>
+<% @course_subjects.each do |course_subject| %>
+<div>
+<%= link_to course_subject.subject.name, '#'%>
+</div>
+<% end %>
+<b>Actions</b>
 <div><%= link_to "Assign Supervisor", edit_supervisors_course_assign_supervisors_path(@course) %></div>
 <div><%= link_to "Assigin Trainee", edit_supervisors_course_assign_trainees_path(@course) %></div>
