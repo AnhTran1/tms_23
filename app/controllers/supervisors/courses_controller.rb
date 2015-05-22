@@ -14,10 +14,19 @@ class Supervisors::CoursesController < ApplicationController
 
   def new
     @course = Course.new
+    @subjects = Subject.all
+    @subjects.each do |subject|
+      @course.course_subjects.build subject_id: subject.id
+    end
   end
 
   def create
     @course = Course.new course_params
+    @course.course_subjects.each do |course_subject|
+      if course_subject.subject_id.nil?
+        course_subject.destroy
+      end
+    end
     if @course.save
       flash[:success] = "Create course success!"
       redirect_to supervisors_courses_path(@course)

@@ -7,11 +7,15 @@ class Supervisors::SubjectsController < ApplicationController
   end
 
   def show
-	@subject = Subject.find params[:id]	
+	@subject = Subject.find params[:id]
+	@tasks = @subject.tasks	
   end
 
   def new
 	@subject = Subject.new
+	4.times do
+      task = @subject.tasks.build
+    end
   end
 
   def create
@@ -47,6 +51,7 @@ class Supervisors::SubjectsController < ApplicationController
 
   private
 	def subject_params
-	  params.require(:subject).permit(:name, :description)
-	end
+      params.require(:subject).permit(:name, :description, 
+        tasks_attributes:[:id, :name, :description])
+    end
 end

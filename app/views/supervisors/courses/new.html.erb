@@ -6,6 +6,16 @@
     <%= render 'shared/error_messages' %>
     <%= f.text_field :name, placeholder: "Name" %>
     <%= f.text_area :description, placeholder: "Description" ,:size =>"10x6" %>
+    <div>
+        <%= f.fields_for :course_subjects do |builder| %>
+          <% subject = builder.object.subject %>
+          <div>
+            <%= builder.check_box :subject_id, 
+              {checked: builder.object.persisted?}, subject.id, '' %>
+            <%= subject.name %>
+          </div>
+        <% end %>
+      </div>
       <br>
       <%= f.submit "Save", class: "btn btn-large btn-primary" %>
     <% end %>
