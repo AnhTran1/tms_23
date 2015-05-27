@@ -9,15 +9,8 @@
         <%= f.text_field :name, placeholder: "Name" %>
         <%= f.text_area :description, placeholder: "Description" %>
       </p>
-      Tasks:
-      <%= f.fields_for :tasks do |builder| %>
-        <div class="fields">
-          </p>
-          <%= builder.text_field :name, placeholder: "Name" %>
-          <%= builder.text_area :description, placeholder: "Content" %>
-        </p>
-        </div>
-        <% end %>
+      <h2>Add tasks</h2>
+      <p><%= creat_add_task_button f, :tasks %></p>
       <p><%= f.submit "Save", class: "btn btn-large btn-primary" %></p>
     <% end %>
   </div>

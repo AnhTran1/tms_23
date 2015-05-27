@@ -38,14 +38,7 @@ subject_list.each do |name, description|
   Subject.create(name: name, description: description)
 end
 
-task_list = {
-  "Chapter1" => "Content for chapter1",
-  "Chapter2" => "Content for chapter2",
-  "Exam" => "Content for exam"
-}
-
-task_list.each do |name, description|
   (1..6).each do |i|
-    Task.create(subject_id: i, name: name, description: description)
+    Task.create(subject_id: i, content: "Chapter ##{i}")
   end
-end
+

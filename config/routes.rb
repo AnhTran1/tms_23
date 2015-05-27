@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :users
     resources :courses
     resources :subjects
+    resources :tasks
 
     resources :courses do
       resource :assign_supervisors, only: [:edit, :create, :destroy]

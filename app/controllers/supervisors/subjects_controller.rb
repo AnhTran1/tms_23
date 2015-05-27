@@ -13,9 +13,7 @@ class Supervisors::SubjectsController < ApplicationController
 
   def new
 	@subject = Subject.new
-	4.times do
-      task = @subject.tasks.build
-    end
+    @task = @subject.tasks.build
   end
 
   def create
@@ -52,6 +50,6 @@ class Supervisors::SubjectsController < ApplicationController
   private
 	def subject_params
       params.require(:subject).permit(:name, :description, 
-        tasks_attributes:[:id, :name, :description])
+        tasks_attributes:[:id, :content])
     end
 end
