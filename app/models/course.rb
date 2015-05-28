@@ -7,4 +7,8 @@ class Course < ActiveRecord::Base
   validates :name, presence: true, length: { maximum: 100 }
   validates :description, presence: true
   accepts_nested_attributes_for :course_subjects, allow_destroy: true
+
+  def started?
+    !start_at.nil?
+  end
 end

@@ -15,7 +15,7 @@ class Supervisors::AssignSupervisorsController < ApplicationController
     user = User.find params[:id]
     @course.supervisor_courses.create user_id: params[:id]
     flash[:success] = "Supervisor #{user.name} has just been added to course"
-    redirect_to edit_supervisors_course_assign_supervisors_path(@course)
+    redirect_to supervisors_course_path(@course)
   end
 
   def destroy

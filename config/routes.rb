@@ -10,6 +10,14 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
   resources :users
+  resources :users do
+    resources :trainee_courses do
+      resources :user_subjects, only: [:edit, :update]      
+    end
+  end
+  resources :courses do
+    resources :course_subjects, only: [:show]
+  end
   resources :sessions
 
   namespace :supervisors do
@@ -25,6 +33,7 @@ Rails.application.routes.draw do
       resource :assign_supervisors, only: [:edit, :create, :destroy]
       resource :assign_trainees, only: [:edit, :create, :destroy]
       resources :course_subjects, only: [:show, :edit, :update]
+      resources :trainee_courses, only: [:update]
     end
   end
 

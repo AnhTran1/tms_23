@@ -42,13 +42,24 @@ class Supervisors::CoursesController < ApplicationController
     end
   end
 
-  def update
-  	@course = Course.find(params[:id])
-    if @course.update_attributes(course_params)
-      flash[:success] = "Course updated"
-      redirect_to supervisors_course_path(@course)
+  def edit
+    @course = Course.find params[:id]
+    (Subject.all - @course.subjects).each do |subject|
+      @course.course_subjects.build subject: subject
+    end
+  end
+
+  def update    
+    @course = Course.find params[:id]
+    if params[:commit].to_s == "Start"
+      params[:course] = {start_at: Date.today.to_s}
+    end
+
+    if @course.update_attributes course_params
+      flash[:success] = "Course updated!"
+      redirect_to supervisors_course_url @course
     else
-       render 'edit'
+      render 'edit'
     end
     @course.course_subjects.each do |course_subject|
       if course_subject.subject_id.nil?
@@ -56,6 +67,7 @@ class Supervisors::CoursesController < ApplicationController
       end
     end
   end
+
 
   def destroy
     @course = Course.find params[:id]

@@ -14,7 +14,7 @@ def edit
     user = User.find params[:id]
     @course.trainee_courses.create user_id: user.id      
     flash[:success] = "Trainee #{user.name} has just been added to course"
-    redirect_to edit_supervisors_course_assign_trainees_path(@course)
+    redirect_to supervisors_course_path(@course)
   end
 
   def destroy

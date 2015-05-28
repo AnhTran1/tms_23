@@ -7,7 +7,7 @@
   <% @supervisors_enrolls.each do |user_course| %>
     <% user = user_course.user %>
     <div>
-      <%= link_to user.name, user %>
+      <%= link_to user.name, supervisors_user_path(user.id) %>
       <%= link_to 'Remove', supervisors_course_assign_supervisors_path(@course, id: user.id),
         method: :delete %>
     </div>
@@ -18,10 +18,11 @@
   <div>
     <% @supervisors_not_enrolls.each do |user| %>
       <div>
-        <%= link_to user.name, user %>
+        <%= link_to user.name, supervisors_user_path(user.id) %>
         <%= link_to 'Add', supervisors_course_assign_supervisors_path(@course.id, id: user.id),
           method: :create %>
       </div>
     <% end %>
+    <h4><%= link_to "Back", supervisors_course_path(@course) %>
   </div>
 </div>

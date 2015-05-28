@@ -15,9 +15,14 @@ User.create(name: "supervisor1", email: "supervisor1@example.com",
   password: "foobar", password_confirmation: "foobar", supervisor: 0)
 end
 
-course_list=[["Course K5434T", "The MySQL development project has made its source code available under the terms of the GNU General Public License, as well as under a variety of proprietary agreements. MySQL was owned and sponsored by a single for-profit firm, the Swedish company MySQL AB, now owned by Oracle Corporation"]]
-course_list.each do |course_name, description|
-  Course.create( name: course_name, description: description )
+course_list = {
+  "Internship" => "This is a course for Internship",
+  "Trainee" => "This is a course for Trainee"
+}
+
+course_list.each do |name, description|
+  course = Course.create(name: name, description: description)
+  User.find_by(email: "supervisor@example.com").supervisor_courses.create course_id: course.id
 end
 
 course_subject_list=[[1,1],[1,2],[1,3],[1,4]]
