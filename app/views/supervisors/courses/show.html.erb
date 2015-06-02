@@ -4,7 +4,10 @@
   <div class="span6 offset3">
     <% @course_subjects.each do |course_subject| %>
       <div>
-        <% if @course.started? %>
+        <% if @course.started? && @course.finish == 0%>
+          <%= link_to course_subject.subject.name, 
+            edit_supervisors_course_course_subject_path(@course, course_subject.subject) %>
+        <% elsif @course.finish == 1 %>
           <%= link_to course_subject.subject.name, 
             edit_supervisors_course_course_subject_path(@course, course_subject.subject) %>
         <% else %>
@@ -14,13 +17,21 @@
       </div>
     <% end %>
 
-    <%if @course.started? %>
-      <div><h3>This course is started</h3></div>      
+    <%if @course.started? && @course.finish == 0 %>
+      <div><h3>This course is started</h3></div>          
+      <%= form_for [:supervisors, @course] do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        <div>Click Finish to finish this course</div>
+        <%= f.submit "Finish", class: "btn btn-large btn-primary" %>  
+        <% end %>
+    <% elsif @course.finish == 1 %>  
+      <div><h3>This course is Finished</h3></div>  
     <% else %>
       <%= form_for [:supervisors, @course] do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
-        <div>This course dosen't start, click start to start thi course</div>
+        <div>This course dosen't start, click start to start this course</div>
         <%= f.submit "Start", class: "btn btn-large btn-primary" %>
+
       <% end %>
     <% end %>
 

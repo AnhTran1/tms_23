@@ -12,11 +12,19 @@ class Supervisors::CourseSubjectsController < ApplicationController
   end
 
   def update
-    if params[:submit] = "Start"
+    if params[:submit].to_s == "Start"
       @course_subject = @course.course_subjects.find_by_subject_id @subject.id
       @course_subject.update_attributes start_at: Date.today.to_s
+      flash[:success] = "Start success!"
     end
-     flash[:success] = "Start success!"
+    
+     
+
+    if params[:submit].to_s == "Finish"
+      @course_subject = @course.course_subjects.find_by_subject_id @subject.id
+      @course_subject.update_attributes finish: 1
+      flash[:success] = "Finish success!"
+    end
     redirect_to edit_supervisors_course_course_subject_path @course, @subject
   end
 
@@ -41,7 +49,7 @@ class Supervisors::CourseSubjectsController < ApplicationController
 
     def course_started
       unless @course.started?
-        redirect_to admin_course_url @course
+        redirect_to supervisors_course_url @course
       end
     end
 end

@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20150527233201) do
     t.integer  "course_id"
     t.integer  "subject_id"
     t.datetime "start_at"
+    t.integer  "finish", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -25,6 +26,7 @@ ActiveRecord::Schema.define(version: 20150527233201) do
     t.string   "name"
     t.string   "description"
     t.datetime "start_at"
+    t.integer "finish" , default: 0
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end

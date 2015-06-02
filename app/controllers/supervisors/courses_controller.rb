@@ -53,7 +53,14 @@ class Supervisors::CoursesController < ApplicationController
     @course = Course.find params[:id]
     if params[:commit].to_s == "Start"
       params[:course] = {start_at: Date.today.to_s}
+      
     end
+    if params[:commit].to_s == "Finish"
+      params[:course] = {finish: 1}
+      @course.course_subjects.each do |subject|
+        subject.finish= 1
+        end
+   end
 
     if @course.update_attributes course_params
       flash[:success] = "Course updated!"
@@ -78,7 +85,7 @@ class Supervisors::CoursesController < ApplicationController
 
   private
     def course_params
-      params.require(:course).permit(:name, :description, :start_at,  
+      params.require(:course).permit(:name, :description, :start_at, :finish, 
         course_subjects_attributes: [:id, :course_id, :subject_id])
     end
 

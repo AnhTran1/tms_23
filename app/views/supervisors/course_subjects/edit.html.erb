@@ -16,10 +16,18 @@
       <% @subject.tasks.each do |task| %>
         <h4><%= task.content %></h4>
       <% end %>
-      <% unless @course_subject.started? %>
+      <% if @course_subject.started? && @course_subject.finish == 0%>
+        <h4><%= link_to 'Finish', supervisors_course_course_subject_path(@course, @subject,
+            submit: "Finish", class: "btn btn-large btn-primary"), method: :put %></h4>
+      <% elsif @course_subject.finish == 1 %>
+            <h4>finished</h4>
+      <% else %>
+        
         <h4><%= link_to 'Start', supervisors_course_course_subject_path(@course, @subject,
           submit: "Start", class: "btn btn-large btn-primary"), method: :put %></h4>
+        
       <% end %>
+
     </div>
   </div>
 </div>
